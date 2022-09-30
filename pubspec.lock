@@ -4,9 +4,11 @@ packages:
   ar_flutter_plugin:
     dependency: "direct main"
     description:
-      name: ar_flutter_plugin
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: "43c7add6aaeff160ce02e3f782ef63ad7cde5f34"
+      url: "https://github.com/ShadowLogan31/ar_flutter_plugin"
+    source: git
     version: "0.7.1"
   async:
     dependency: transitive
@@ -80,7 +82,7 @@ packages:
     source: sdk
     version: "0.0.0"
   geolocator:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: geolocator
       url: "https://pub.dartlang.org"

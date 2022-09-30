@@ -50,6 +50,7 @@ class _HomePageState extends State<HomePage> {
       showFeaturePoints: false,
       showPlanes: false,
       customPlaneTexturePath: "Images/triangle.png",
+      handleTaps: false,
     );
     arObjectManager.onInitialize();
     getArrow();
@@ -71,12 +72,6 @@ class _HomePageState extends State<HomePage> {
     );
     bool? didAddLocalNode = await _arObjectManager!.addNode(newNode);
     _arrowNode = (didAddLocalNode != null) ? newNode : null;
-    Geolocator.getPositionStream(
-            locationSettings: LocationSettings(accuracy: LocationAccuracy.high))
-        .listen((Position position) {
-      print("NEW POS");
-      setState(() {});
-    });
   }
 
   getCameraPos() async {
