@@ -6,7 +6,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "43c7add6aaeff160ce02e3f782ef63ad7cde5f34"
+      resolved-ref: "7c4f5a367b3cf0981f98025595932679bb5d9621"
       url: "https://github.com/ShadowLogan31/ar_flutter_plugin"
     source: git
     version: "0.7.1"

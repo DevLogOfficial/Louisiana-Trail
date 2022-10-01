@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:ar_flutter_plugin/ar_flutter_plugin.dart';
 import 'package:ar_flutter_plugin/datatypes/config_planedetection.dart';
 import 'package:ar_flutter_plugin/datatypes/node_types.dart';
+import 'package:ar_flutter_plugin/datatypes/parent_types.dart';
 import 'package:ar_flutter_plugin/managers/ar_anchor_manager.dart';
 import 'package:ar_flutter_plugin/managers/ar_location_manager.dart';
 import 'package:ar_flutter_plugin/managers/ar_object_manager.dart';
@@ -66,12 +67,15 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> getArrow() async {
     var newNode = ARNode(
+      channel: _arObjectManager!.channel,
       type: NodeType.localGLTF2,
       uri: "assets/models/arrow/scene.gltf",
-      transformation: await getCameraPos(),
+      scale: Vector3(0.2, 0.2, 0.2),
     );
     bool? didAddLocalNode = await _arObjectManager!.addNode(newNode);
     _arrowNode = (didAddLocalNode != null) ? newNode : null;
+    _arrowNode!.setParent(ParentType.camera);
+    _arrowNode!.position = Vector3(0, -1, -3);
   }
 
   getCameraPos() async {
