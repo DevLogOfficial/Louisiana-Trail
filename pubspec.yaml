@@ -40,6 +40,12 @@ dependencies:
     git: 
       url: https://github.com/ShadowLogan31/ar_flutter_plugin
   vector_math: ^2.1.2
+  firebase_auth: ^3.11.1
+  firebase_database: ^9.1.6
+  cloud_firestore: ^3.5.0
+  firebase_core: ^1.24.0
+  google_fonts: ^3.0.1
+  flutter_keyboard_visibility: ^5.3.0
 
 dev_dependencies:
   flutter_test:

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "271394067157",
+    "project_id": "louisiana-trail",
+    "storage_bucket": "louisiana-trail.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:271394067157:android:5948eb3a6b06077716885c",
+        "android_client_info": {
+          "package_name": "com.team11.louisianatrail"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "271394067157-g2o850vbrd3fbncutihn6jsss2k6brrm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbL3KqXy8xd4UpFR-4A-yU4Qcup1WE0u0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "271394067157-g2o850vbrd3fbncutihn6jsss2k6brrm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
