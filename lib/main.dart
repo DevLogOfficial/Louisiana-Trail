@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
             labelMedium: fontStyle(18, Colors.grey, FontWeight.w700),
             labelSmall: fontStyle(18, Colors.purple, FontWeight.w700),
             displayLarge: fontStyle(20, Colors.black, FontWeight.w600),
-            displayMedium: fontStyle(18, Colors.purple, FontWeight.w700),
+            displayMedium: fontStyle(18, Colors.white, FontWeight.w700),
           ),
           iconTheme: IconThemeData(color: Colors.black)),
       home: BasePage(),

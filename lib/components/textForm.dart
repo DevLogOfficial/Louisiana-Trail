@@ -37,14 +37,14 @@ class TextFormState extends State<TextForm> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: Theme.of(context).textTheme.displayMedium,
+      style: Theme.of(context).textTheme.labelSmall,
       decoration: InputDecoration(
         hintText: widget.labelText,
         contentPadding: EdgeInsets.all(1),
         prefixIcon:
             Icon(widget.prefixIcon, color: Theme.of(context).iconTheme.color),
         hintStyle: styleOn
-            ? Theme.of(context).textTheme.displayMedium
+            ? Theme.of(context).textTheme.labelSmall
             : Theme.of(context).textTheme.labelMedium,
         filled: true,
         fillColor: Colors.white,

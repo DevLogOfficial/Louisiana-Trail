@@ -15,6 +15,7 @@ class BasePage extends StatefulWidget {
 
 class _BasePageState extends State<BasePage> {
   bool isLoggedIn = false;
+  bool completedInfo = false;
   initState() {
     super.initState();
     auth.authStateChanges().listen((user) {
@@ -28,10 +29,22 @@ class _BasePageState extends State<BasePage> {
         });
       }
     });
+    if (isLoggedIn) {
+      usercollection.doc(auth.currentUser!.uid).get().then((value) => {
+            setState(() {
+              completedInfo = value["completedInfo"];
+            }),
+          });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: isLoggedIn == true ? NavigationPage() : AuthPage());
+    return Scaffold(
+        body: isLoggedIn == true
+            ? completedInfo
+                ? NavigationPage()
+                : AboutPage()
+            : AuthPage());
   }
 }
