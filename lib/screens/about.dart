@@ -45,7 +45,7 @@ class _AboutPageState extends State<AboutPage> {
               Theme.of(context).colorScheme.secondary
             ],
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 20),
           ElevatedButton(
               onPressed: () => {
                     usercollection.doc(auth.currentUser!.uid).update({
