@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:louisianatrail/screens/home.dart';
 import 'package:louisianatrail/screens/auth.dart';
+import 'package:louisianatrail/screens/navigation.dart';
 import 'package:louisianatrail/variables.dart';
 import 'package:flutter/material.dart';
 
@@ -31,6 +31,6 @@ class _BasePageState extends State<BasePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: isLoggedIn == true ? HomePage() : AuthPage());
+    return Scaffold(body: isLoggedIn == true ? NavigationPage() : AuthPage());
   }
 }

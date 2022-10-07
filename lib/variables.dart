@@ -5,14 +5,22 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 fontStyle(double size,
-    [Color? color, FontWeight fw = FontWeight.w700, double spacing = 1]) {
-  return GoogleFonts.montserrat(
+    [Color? color, FontWeight fw = FontWeight.w500, double spacing = -1]) {
+  return GoogleFonts.inter(
+      fontSize: size, color: color, fontWeight: fw, letterSpacing: spacing);
+}
+
+fontStyle2(double size,
+    [Color? color, FontWeight fw = FontWeight.w500, double spacing = 1]) {
+  return GoogleFonts.lobster(
       fontSize: size, color: color, fontWeight: fw, letterSpacing: spacing);
 }
 
 //Firebase
 var auth = FirebaseAuth.instance;
 DatabaseReference database = FirebaseDatabase.instance.ref();
+var usercollection = FirebaseFirestore.instance.collection('users');
+var trailcollection = FirebaseFirestore.instance.collection('trails');
 //Firebase
 
 //Navigation

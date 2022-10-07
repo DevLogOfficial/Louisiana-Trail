@@ -78,13 +78,17 @@ class _AuthPageState extends State<AuthPage> with TickerProviderStateMixin {
                   gradient: LinearGradient(colors: [
                     Theme.of(context).colorScheme.primary,
                     Theme.of(context).colorScheme.secondary
-                  ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+                  ]),
                 ),
                 child: Stack(alignment: Alignment.center, children: [
                   Positioned(
-                    top: 100,
-                    child: Text("Louisiana Trail",
-                        style: Theme.of(context).textTheme.headlineLarge),
+                    top: 75,
+                    child: SizedBox(
+                      width: 200,
+                      child: Text("Louisiana Trail",
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.headlineLarge),
+                    ),
                   ),
                   Positioned(
                     top: _animation!.value,
@@ -93,7 +97,7 @@ class _AuthPageState extends State<AuthPage> with TickerProviderStateMixin {
                       height: MediaQuery.of(context).size.height,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: Color(0xfff3f3f3),
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(30),
                               topRight: Radius.circular(30))),
@@ -152,50 +156,58 @@ class _LoginState extends State<Login> {
           key: _formKey,
           child: Container(
               margin: EdgeInsets.only(left: 30, right: 30),
-              child: Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
-                TextForm(
-                  labelText: "Email",
-                  prefixIcon: Icons.email,
-                  onSaved: (input) => email = input,
-                ),
-                SizedBox(height: 3),
-                displayError.isNotEmpty
-                    ? Text(displayError, style: TextStyle(color: Colors.red))
-                    : SizedBox(),
-                SizedBox(height: 15),
-                TextForm(
-                  labelText: "Password",
-                  prefixIcon: Icons.lock,
-                  onSaved: (input) => password = input,
-                  obscureText: true,
-                ),
-                passwordError.isNotEmpty
-                    ? Text(passwordError, style: TextStyle(color: Colors.red))
-                    : Text(""),
-                SizedBox(height: 20),
-                ElevatedButton(
-                    onPressed: submit,
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                        minimumSize: Size(200, 50),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
-                    child: Text('Login',
-                        style: TextStyle(color: Colors.white, fontSize: 20))),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("Don't have an account?",
-                        style: Theme.of(context).textTheme.labelSmall),
-                    SizedBox(width: 5),
-                    InkWell(
-                        onTap: () => widget.updateState!(false),
-                        child: Text("Register",
-                            style: Theme.of(context).textTheme.labelMedium))
-                  ],
-                )
-              ]))),
+              child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text("Hit the trail",
+                        style: Theme.of(context).textTheme.labelLarge),
+                    SizedBox(height: 15),
+                    TextForm(
+                      labelText: "Email",
+                      prefixIcon: Icons.email,
+                      onSaved: (input) => email = input,
+                    ),
+                    SizedBox(height: 3),
+                    displayError.isNotEmpty
+                        ? Text(displayError,
+                            style: TextStyle(color: Colors.red))
+                        : SizedBox(),
+                    SizedBox(height: 15),
+                    TextForm(
+                      labelText: "Password",
+                      prefixIcon: Icons.lock,
+                      onSaved: (input) => password = input,
+                      obscureText: true,
+                    ),
+                    passwordError.isNotEmpty
+                        ? Text(passwordError,
+                            style: TextStyle(color: Colors.red))
+                        : Text(""),
+                    SizedBox(height: 10),
+                    ElevatedButton(
+                        onPressed: submit,
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.purple,
+                            minimumSize: Size(350, 50),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10))),
+                        child: Text('Login',
+                            style: Theme.of(context).textTheme.displayLarge)),
+                    SizedBox(height: 20),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Don't have an account?",
+                            style: Theme.of(context).textTheme.labelMedium),
+                        SizedBox(width: 5),
+                        InkWell(
+                            onTap: () => widget.updateState!(false),
+                            child: Text("Register here",
+                                style: Theme.of(context).textTheme.labelSmall))
+                      ],
+                    )
+                  ]))),
     );
   }
 }
@@ -218,12 +230,21 @@ class _RegisterState extends State<Register> {
       auth
           .createUserWithEmailAndPassword(email: email!, password: password!)
           .then((signedUser) {
+        usercollection.doc(signedUser.user!.uid).set({
+          'username': username,
+        });
+        database
+            .child("users")
+            .child(signedUser.user!.uid)
+            .set({'username': username});
         auth.signInWithEmailAndPassword(
           email: email!,
           password: password!,
         );
         Navigator.pop(context);
-        return {};
+        return {
+          auth.currentUser!.updateDisplayName(username),
+        };
       });
     }
   }
@@ -235,67 +256,81 @@ class _RegisterState extends State<Register> {
             key: _formKey,
             child: Container(
                 margin: EdgeInsets.only(left: 30, right: 30),
-                child:
-                    Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
-                  TextForm(
-                    labelText: "Email",
-                    prefixIcon: Icons.email,
-                    onSaved: (input) => email = input,
-                    validator: (input) => !input!.contains('@')
-                        ? 'Please enter a valid email'
-                        : null,
-                  ),
-                  SizedBox(height: 10),
-                  TextForm(
-                    labelText: "Password",
-                    prefixIcon: Icons.lock,
-                    obscureText: true,
-                    onSaved: (input) => password = input,
-                    validator: (input) => input!.length < 6
-                        ? 'Password must be at least 6 characters'
-                        : null,
-                  ),
-                  SizedBox(height: 10),
-                  TextForm(
-                    labelText: "Confirm Password",
-                    prefixIcon: Icons.lock,
-                    obscureText: true,
-                    onSaved: (input) => confirmPassword = input,
-                    validator: (input) => confirmPassword != password
-                        ? 'Passwords must match'
-                        : null,
-                  ),
-                  SizedBox(height: 10),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: ElevatedButton(
-                        onPressed: register,
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
-                            minimumSize: Size(200, 50),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10))),
-                        child: Text('Register',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18.0,
-                            ))),
-                  ),
-                  SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Already have an account?",
-                          style: Theme.of(context).textTheme.labelSmall),
-                      SizedBox(width: 5),
-                      InkWell(
-                          onTap: () => widget.updateState!(true),
-                          child: Text("Login",
-                              style: Theme.of(context).textTheme.labelMedium))
-                    ],
-                  )
-                ]))));
+                child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("Sign Up",
+                          style: Theme.of(context).textTheme.labelLarge),
+                      SizedBox(height: 15),
+                      TextForm(
+                        labelText: "Username",
+                        prefixIcon: Icons.person,
+                        onSaved: (input) => username = input,
+                        validator: (input) =>
+                            !(input!.length > 5) && input.trim().isEmpty
+                                ? 'Username Invalid'
+                                : null,
+                      ),
+                      SizedBox(height: 10),
+                      TextForm(
+                        labelText: "Email",
+                        prefixIcon: Icons.email,
+                        onSaved: (input) => email = input,
+                        validator: (input) => !input!.contains('@')
+                            ? 'Please enter a valid email'
+                            : null,
+                      ),
+                      SizedBox(height: 10),
+                      TextForm(
+                        labelText: "Password",
+                        prefixIcon: Icons.lock,
+                        obscureText: true,
+                        onSaved: (input) => password = input,
+                        validator: (input) => input!.length < 6
+                            ? 'Password must be at least 6 characters'
+                            : null,
+                      ),
+                      SizedBox(height: 10),
+                      TextForm(
+                        labelText: "Confirm Password",
+                        prefixIcon: Icons.lock,
+                        obscureText: true,
+                        onSaved: (input) => confirmPassword = input,
+                        validator: (input) => confirmPassword != password
+                            ? 'Passwords must match'
+                            : null,
+                      ),
+                      SizedBox(height: 10),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: ElevatedButton(
+                            onPressed: register,
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.purple,
+                                minimumSize: Size(350, 50),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10))),
+                            child: Text('Register',
+                                style:
+                                    Theme.of(context).textTheme.displayLarge)),
+                      ),
+                      SizedBox(height: 20),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Already have an account?",
+                              style: Theme.of(context).textTheme.labelMedium),
+                          SizedBox(width: 5),
+                          InkWell(
+                              onTap: () => widget.updateState!(true),
+                              child: Text("Login Here",
+                                  style:
+                                      Theme.of(context).textTheme.labelSmall))
+                        ],
+                      )
+                    ]))));
   }
 }

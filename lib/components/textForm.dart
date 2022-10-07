@@ -39,13 +39,15 @@ class TextFormState extends State<TextForm> {
     return TextFormField(
       style: Theme.of(context).textTheme.displayMedium,
       decoration: InputDecoration(
-        labelText: widget.labelText,
+        hintText: widget.labelText,
         contentPadding: EdgeInsets.all(1),
         prefixIcon:
             Icon(widget.prefixIcon, color: Theme.of(context).iconTheme.color),
-        labelStyle: styleOn
-            ? Theme.of(context).textTheme.displayLarge
-            : Theme.of(context).textTheme.labelLarge,
+        hintStyle: styleOn
+            ? Theme.of(context).textTheme.displayMedium
+            : Theme.of(context).textTheme.labelMedium,
+        filled: true,
+        fillColor: Colors.white,
         focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.purple, width: 3.0),
             borderRadius: BorderRadius.only(
@@ -55,8 +57,7 @@ class TextFormState extends State<TextForm> {
               bottomRight: Radius.circular(10),
             )),
         enabledBorder: OutlineInputBorder(
-          borderSide:
-              BorderSide(color: Theme.of(context).iconTheme.color!, width: 1),
+          borderSide: BorderSide(color: Color(0xff8a8a8a), width: 1),
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(10),
             topRight: Radius.circular(10),
