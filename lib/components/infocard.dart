@@ -8,10 +8,9 @@ import 'package:louisianatrail/components/map.dart';
 class InfoCard extends StatefulWidget {
   final String? title;
   final String? desc;
-  final String? creator;
+  final String? host;
   final String? address;
-  const InfoCard(
-      {super.key, this.title, this.desc, this.creator, this.address});
+  const InfoCard({super.key, this.title, this.desc, this.host, this.address});
 
   @override
   State<InfoCard> createState() => _InfoCardState();
@@ -23,11 +22,11 @@ class _InfoCardState extends State<InfoCard> {
     return Container(
       height: 100,
       child: Row(children: [
-        GPSMap(address: ""),
+        GPSMap(address: widget.address!),
         Column(children: [
           Text(widget.title!, style: Theme.of(context).textTheme.labelLarge),
           Text(widget.desc!),
-          Text(widget.creator!)
+          Text(widget.host!)
         ])
       ]),
     );

@@ -64,7 +64,6 @@ class _GPSMapState extends State<GPSMap> {
           location = await _locationService.getLocation();
           _destination = await getAddressLatLng();
           _currentLocation = location;
-          _routePoints = await retrieveRoute();
           initMap();
           _locationService.onLocationChanged
               .listen((LocationData result) async {

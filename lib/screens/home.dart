@@ -1,8 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:louisianatrail/components/infocard.dart';
+import 'package:louisianatrail/variables.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class HomePage extends StatefulWidget {
@@ -45,6 +48,38 @@ class _HomePageState extends State<HomePage> {
                 )),
           ],
         ),
+        StreamBuilder(
+            stream: trailcollection.snapshots(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if ((snapshot.data! as DatabaseEvent).snapshot.value !=
+                  null) {
+                Map data =
+                    (snapshot.data! as DatabaseEvent).snapshot.value as Map;
+                List items = [];
+
+                data.forEach(
+                    (index, data) => items.add({"key": index, ...data}));
+
+                return ListView.builder(
+                    itemCount: items.length,
+                    padding: EdgeInsets.all(0),
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: InfoCard(
+                            title: items[index]["title"],
+                            desc: items[index]["desc"],
+                            host: items[index]["host"]),
+                      );
+                    });
+              } else {
+                return CircularProgressIndicator();
+              }
+            }),
       ],
     )));
   }
