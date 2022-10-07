@@ -39,7 +39,7 @@ class _OptionPickerState extends State<OptionPicker> {
                 .entries
                 .map((entry) => InkWell(
                     onTap: () => {
-                          widget.onTap,
+                          widget.onTap!.call(),
                           setState(() {
                             widget.controller!.selectedIndex = entry.key;
                           })

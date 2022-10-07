@@ -44,8 +44,16 @@ class _AboutPageState extends State<AboutPage> {
               Theme.of(context).colorScheme.primary,
               Theme.of(context).colorScheme.secondary
             ],
+            onTap: () => {setState(() {})},
           ),
           SizedBox(height: 20),
+          if (_controller.selectedIndex == 0 || _controller.selectedIndex == 1)
+            Column(
+              children: [
+                Text("Classes", style: Theme.of(context).textTheme.labelLarge),
+                SizedBox(height: 150),
+              ],
+            ),
           ElevatedButton(
               onPressed: () => {
                     usercollection.doc(auth.currentUser!.uid).update({
