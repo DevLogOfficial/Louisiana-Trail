@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:louisianatrail/screens/about.dart';
 import 'package:louisianatrail/screens/auth.dart';
 import 'package:louisianatrail/screens/navigation.dart';
 import 'package:louisianatrail/variables.dart';
