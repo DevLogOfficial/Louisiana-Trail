@@ -22,7 +22,7 @@ class _InfoCardState extends State<InfoCard> {
     return Container(
       height: 100,
       child: Row(children: [
-        GPSMap(address: widget.address!),
+        SizedBox(width: 100, child: GPSMap(address: widget.address!)),
         Column(children: [
           Text(widget.title!, style: Theme.of(context).textTheme.labelLarge),
           Text(widget.desc!),

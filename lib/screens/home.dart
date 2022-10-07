@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -55,28 +56,23 @@ class _HomePageState extends State<HomePage> {
                 return Center(
                   child: CircularProgressIndicator(),
                 );
-              } else if ((snapshot.data! as DatabaseEvent).snapshot.value !=
-                  null) {
-                Map data =
-                    (snapshot.data! as DatabaseEvent).snapshot.value as Map;
-                List items = [];
-
-                data.forEach(
-                    (index, data) => items.add({"key": index, ...data}));
-
-                return ListView.builder(
-                    itemCount: items.length,
-                    padding: EdgeInsets.all(0),
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: InfoCard(
-                            title: items[index]["title"],
-                            desc: items[index]["desc"],
-                            host: items[index]["host"],
-                            address: items[index]["address"]),
-                      );
-                    });
+              } else if (snapshot.data != null) {
+                return Expanded(
+                  child: ListView.builder(
+                      itemCount: snapshot.data!.docs.length,
+                      padding: EdgeInsets.all(0),
+                      itemBuilder: (context, index) {
+                        DocumentSnapshot document = snapshot.data!.docs[index];
+                        return Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: InfoCard(
+                              title: document["title"],
+                              desc: document["desc"],
+                              host: document["host"],
+                              address: document["address"]),
+                        );
+                      }),
+                );
               } else {
                 return CircularProgressIndicator();
               }

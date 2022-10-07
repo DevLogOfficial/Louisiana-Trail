@@ -44,11 +44,6 @@ class _GPSMapState extends State<GPSMap> {
   }
 
   void initLocationService() async {
-    await _locationService.changeSettings(
-      accuracy: LocationAccuracy.high,
-      interval: 1000,
-    );
-
     LocationData? location;
     bool serviceEnabled;
     bool serviceRequestResult;
