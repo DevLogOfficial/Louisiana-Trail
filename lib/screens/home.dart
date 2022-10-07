@@ -73,7 +73,8 @@ class _HomePageState extends State<HomePage> {
                         child: InfoCard(
                             title: items[index]["title"],
                             desc: items[index]["desc"],
-                            host: items[index]["host"]),
+                            host: items[index]["host"],
+                            address: items[index]["address"]),
                       );
                     });
               } else {
