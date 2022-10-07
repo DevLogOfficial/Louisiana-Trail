@@ -39,13 +39,16 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(8)),
                 margin: EdgeInsets.only(bottom: 5, right: 20),
                 padding: EdgeInsets.all(3),
-                child: Row(
-                  children: [
-                    Icon(MdiIcons.filter),
-                    Text("Classes",
-                        style: Theme.of(context).textTheme.headlineMedium),
-                    Icon(MdiIcons.chevronDown),
-                  ],
+                child: InkWell(
+                  onTap: () => {print("Filter")},
+                  child: Row(
+                    children: [
+                      Icon(MdiIcons.filter),
+                      Text("Classes",
+                          style: Theme.of(context).textTheme.headlineMedium),
+                      Icon(MdiIcons.chevronDown),
+                    ],
+                  ),
                 )),
           ],
         ),
