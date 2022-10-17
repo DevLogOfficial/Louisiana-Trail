@@ -1,23 +1,19 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:louisianatrail/components/map.dart';
 
 class OptionPicker extends StatefulWidget {
   final OptionPickerController? controller;
   final List<String>? options;
   final List<Color> selectedColors;
   final List<Color> unselectedColors;
-  final Function? onTap;
-  const OptionPicker(
-      {super.key,
-      required this.controller,
-      required this.selectedColors,
-      this.options,
-      this.unselectedColors = const [Colors.white, Colors.white],
-      this.onTap});
+  const OptionPicker({
+    super.key,
+    required this.controller,
+    required this.selectedColors,
+    this.options,
+    this.unselectedColors = const [Colors.white, Colors.white],
+  });
 
   @override
   State<OptionPicker> createState() => _OptionPickerState();
@@ -32,14 +28,13 @@ class _OptionPickerState extends State<OptionPicker> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
         child: Column(
             children: widget.options!
                 .asMap()
                 .entries
                 .map((entry) => InkWell(
                     onTap: () => {
-                          widget.onTap!.call(),
                           setState(() {
                             widget.controller!.selectedIndex = entry.key;
                           })
@@ -62,7 +57,7 @@ class _OptionPickerState extends State<OptionPicker> {
                             child: Text(entry.value,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .displayMedium!
+                                    .labelMedium!
                                     .copyWith(
                                         color:
                                             widget.controller!.selectedIndex ==

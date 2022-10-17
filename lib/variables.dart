@@ -27,6 +27,38 @@ var trailcollection = FirebaseFirestore.instance.collection('trails');
 int page = 0;
 //Navigation
 
+//Addresses
+List<String>? addresses = [
+  'Music',
+  'Games',
+  'Youtube',
+  'Sports',
+  'LSU',
+  'Books',
+  'Study',
+  'Food',
+  'Fraternity',
+  'Sorority',
+  'Entertainment',
+];
+//Addresses
+
+//Tags
+List<String>? tags = [
+  'Music',
+  'Games',
+  'Youtube',
+  'Sports',
+  'LSU',
+  'Books',
+  'Study',
+  'Food',
+  'Fraternity',
+  'Sorority',
+  'Entertainment',
+];
+//Tags
+
 //Clipping
 class CustomShapeClipper extends CustomClipper<Path> {
   @override

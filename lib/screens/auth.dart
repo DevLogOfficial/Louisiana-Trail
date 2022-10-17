@@ -204,7 +204,10 @@ class _LoginState extends State<Login> {
                       InkWell(
                           onTap: () => widget.updateState!(false),
                           child: Text("Register here",
-                              style: Theme.of(context).textTheme.labelSmall))
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelMedium!
+                                  .copyWith(color: Colors.purple)))
                     ],
                   )
                 ])));
@@ -321,7 +324,10 @@ class _RegisterState extends State<Register> {
                       InkWell(
                           onTap: () => widget.updateState!(true),
                           child: Text("Login Here",
-                              style: Theme.of(context).textTheme.labelSmall))
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelMedium!
+                                  .copyWith(color: Colors.purple)))
                     ],
                   )
                 ])));

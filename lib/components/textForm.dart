@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 class TextForm extends StatefulWidget {
   final String? labelText;
   final IconData? prefixIcon;
+  final int? maxLines;
+  final int? maxLength;
   final Function(String?)? onSaved;
   final String? Function(String?)? validator;
   bool obscureText;
@@ -12,6 +14,8 @@ class TextForm extends StatefulWidget {
     Key? key,
     this.labelText,
     this.prefixIcon,
+    this.maxLines,
+    this.maxLength,
     required this.onSaved,
     this.validator,
     this.obscureText = false,
@@ -37,14 +41,22 @@ class TextFormState extends State<TextForm> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: Theme.of(context).textTheme.labelSmall,
+      style: Theme.of(context)
+          .textTheme
+          .labelMedium!
+          .copyWith(color: Colors.black),
+      maxLines: widget.maxLines ?? 1,
+      maxLength: widget.maxLength,
       decoration: InputDecoration(
         hintText: widget.labelText,
-        contentPadding: EdgeInsets.all(1),
+        contentPadding: EdgeInsets.all(10),
         prefixIcon:
             Icon(widget.prefixIcon, color: Theme.of(context).iconTheme.color),
         hintStyle: styleOn
-            ? Theme.of(context).textTheme.labelSmall
+            ? Theme.of(context)
+                .textTheme
+                .labelMedium!
+                .copyWith(color: Colors.purple)
             : Theme.of(context).textTheme.labelMedium,
         filled: true,
         fillColor: Colors.white,

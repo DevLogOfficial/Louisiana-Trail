@@ -35,12 +35,10 @@ class MyApp extends StatelessWidget {
           textTheme: TextTheme(
             headlineLarge: fontStyle2(45, Colors.white),
             headlineMedium: fontStyle(15, Colors.black, FontWeight.w600),
-            bodyLarge: fontStyle(50, Colors.white),
             labelLarge: fontStyle(30, Colors.black, FontWeight.w700),
             labelMedium: fontStyle(18, Colors.grey, FontWeight.w700),
-            labelSmall: fontStyle(18, Colors.purple, FontWeight.w700),
             displayLarge: fontStyle(20, Colors.black, FontWeight.w600),
-            displayMedium: fontStyle(18, Colors.white, FontWeight.w700),
+            displaySmall: fontStyle(15, Colors.white, FontWeight.w700),
           ),
           iconTheme: IconThemeData(color: Colors.black)),
       home: BasePage(),

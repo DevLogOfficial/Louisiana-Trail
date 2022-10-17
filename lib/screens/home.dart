@@ -39,8 +39,8 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(8)),
                 margin: EdgeInsets.only(bottom: 5, right: 20),
                 padding: EdgeInsets.all(3),
-                child: InkWell(
-                  onTap: () => {print("Filter")},
+                child: GestureDetector(
+                  onTap: () => {Feedback.forTap(context), print("Filter")},
                   child: Row(
                     children: [
                       Icon(MdiIcons.filter),
@@ -62,18 +62,27 @@ class _HomePageState extends State<HomePage> {
               } else if (snapshot.data != null) {
                 return Expanded(
                   child: ListView.builder(
-                      itemCount: snapshot.data!.docs.length,
+                      itemCount: snapshot.data!.docs.length + 1,
                       padding: EdgeInsets.all(0),
                       itemBuilder: (context, index) {
-                        DocumentSnapshot document = snapshot.data!.docs[index];
-                        return Padding(
-                          padding: EdgeInsets.all(10.0),
-                          child: InfoCard(
-                              title: document["title"],
-                              desc: document["desc"],
-                              host: document["host"],
-                              address: document["address"]),
-                        );
+                        if (index <= snapshot.data!.docs.length - 1) {
+                          DocumentSnapshot document =
+                              snapshot.data!.docs[index];
+                          return Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: InfoCard(
+                                title: document["title"],
+                                desc: document["desc"],
+                                host: document["host"],
+                                address: document["address"]),
+                          );
+                        } else {
+                          return Center(
+                              child: Text("Thats all for now!",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayLarge));
+                        }
                       }),
                 );
               } else {

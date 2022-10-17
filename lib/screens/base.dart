@@ -16,12 +16,19 @@ class BasePage extends StatefulWidget {
 class _BasePageState extends State<BasePage> {
   bool isLoggedIn = false;
   bool completedInfo = false;
+
+  @override
   initState() {
     super.initState();
     auth.authStateChanges().listen((user) {
       if (user != null) {
         setState(() {
           isLoggedIn = true;
+          usercollection.doc(auth.currentUser!.uid).get().then((value) => {
+                setState(() {
+                  completedInfo = value["completedInfo"];
+                }),
+              });
         });
       } else {
         setState(() {
@@ -29,13 +36,12 @@ class _BasePageState extends State<BasePage> {
         });
       }
     });
-    if (isLoggedIn) {
-      usercollection.doc(auth.currentUser!.uid).get().then((value) => {
-            setState(() {
-              completedInfo = value["completedInfo"];
-            }),
-          });
-    }
+  }
+
+  updateCompletedInfo() {
+    setState(() {
+      completedInfo = true;
+    });
   }
 
   @override
@@ -44,7 +50,7 @@ class _BasePageState extends State<BasePage> {
         body: isLoggedIn == true
             ? completedInfo
                 ? NavigationPage()
-                : AboutPage()
+                : AboutPage(onSubmit: updateCompletedInfo)
             : AuthPage());
   }
 }

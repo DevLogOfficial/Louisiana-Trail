@@ -52,6 +52,7 @@ dependencies:
   latlong: ^0.6.1
   location: ^4.4.0
   open_route_service: ^1.2.2
+  multi_select_flutter: ^4.1.2
 
 dev_dependencies:
   flutter_test:
