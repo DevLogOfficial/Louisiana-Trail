@@ -6,6 +6,8 @@ typedef OnTap = void Function(int index);
 
 ///Class for adding AutoSearchInput to your project
 class AutoSearchInput extends StatefulWidget {
+  final TextEditingController controller;
+
   ///List of data that can be searched through for the results
   final List<String> data;
 
@@ -65,6 +67,7 @@ class AutoSearchInput extends StatefulWidget {
 
   const AutoSearchInput({
     super.key,
+    required this.controller,
     required this.data,
     required this.maxElementsToDisplay,
     required this.onItemTap,
@@ -93,20 +96,18 @@ class _AutoSearchInputState extends State<AutoSearchInput> {
   List<String> results = [];
   bool isItemClicked = false;
 
-  final TextEditingController _textEditingController = TextEditingController();
-
   final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
-    _textEditingController.addListener(() {
+    widget.controller.addListener(() {
       setState(() {
         results = widget.data
             .where(
               (element) => element
                   .toLowerCase()
-                  .startsWith(_textEditingController.text.toLowerCase()),
+                  .startsWith(widget.controller.text.toLowerCase()),
             )
             .toList();
         if (results.length > widget.maxElementsToDisplay) {
@@ -124,19 +125,18 @@ class _AutoSearchInputState extends State<AutoSearchInput> {
 
   @override
   void dispose() {
-    _textEditingController.dispose();
+    widget.controller.dispose();
     super.dispose();
   }
 
   Widget _getRichText(String result) {
     return RichText(
-      text: _textEditingController.text.isNotEmpty
+      text: widget.controller.text.isNotEmpty
           ? TextSpan(
               children: [
-                if (_textEditingController.text.isNotEmpty)
+                if (widget.controller.text.isNotEmpty)
                   TextSpan(
-                    text:
-                        result.substring(0, _textEditingController.text.length),
+                    text: result.substring(0, widget.controller.text.length),
                     style: TextStyle(
                       fontSize: widget.fontSize,
                       color: widget.selectedTextColor ?? Colors.black,
@@ -144,7 +144,7 @@ class _AutoSearchInputState extends State<AutoSearchInput> {
                   ),
                 TextSpan(
                   text: result.substring(
-                      _textEditingController.text.length, result.length),
+                      widget.controller.text.length, result.length),
                   style: TextStyle(
                     fontSize: widget.fontSize,
                     color: widget.unSelectedTextColor ?? Colors.grey[400],
@@ -172,7 +172,7 @@ class _AutoSearchInputState extends State<AutoSearchInput> {
           enabled: widget.enabled,
           onEditingComplete: widget.onEditingComplete,
           onSubmitted: widget.onSubmitted,
-          controller: _textEditingController,
+          controller: widget.controller,
           decoration: InputDecoration(
             hintText: widget.hintText,
             contentPadding: const EdgeInsets.all(10.0),
@@ -238,7 +238,7 @@ class _AutoSearchInputState extends State<AutoSearchInput> {
                       Feedback.forTap(context);
                       String value = results[index];
                       widget.onItemTap(widget.data.indexOf(value));
-                      _textEditingController.text = "";
+                      widget.controller.text = "";
                       _focusNode.unfocus();
                       setState(() {
                         isItemClicked = !isItemClicked;

@@ -37,6 +37,7 @@ class _OptionPickerState extends State<OptionPicker> {
                     onTap: () => {
                           setState(() {
                             widget.controller!.selectedIndex = entry.key;
+                            widget.controller!.notify();
                           })
                         },
                     child: Container(
@@ -71,6 +72,10 @@ class _OptionPickerState extends State<OptionPicker> {
 class OptionPickerController extends ChangeNotifier {
   List<String>? options;
   int selectedIndex = -1;
+
+  void notify() {
+    notifyListeners();
+  }
 
   void setOptions(List<String>? list) {
     options = list;

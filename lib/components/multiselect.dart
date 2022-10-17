@@ -22,6 +22,8 @@ class MultiSelect extends StatefulWidget {
 }
 
 class _MultiSelectState extends State<MultiSelect> {
+  final TextEditingController _controller = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -89,6 +91,7 @@ class _MultiSelectState extends State<MultiSelect> {
                 : Text("None Selected"),
           ),
           AutoSearchInput(
+              controller: _controller,
               data: widget.tags!,
               maxElementsToDisplay: 10,
               itemsShownAtStart: 3,
@@ -99,6 +102,7 @@ class _MultiSelectState extends State<MultiSelect> {
                           .contains(widget.tags![index])) {
                         widget.controller!.selectedTags!
                             .add(widget.tags![index]);
+                        _controller.text = "";
                       }
                     })
                   }),

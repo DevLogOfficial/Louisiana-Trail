@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:louisianatrail/screens/account.dart';
+import 'package:louisianatrail/screens/eventCreate.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:louisianatrail/screens/home.dart';
 import 'package:louisianatrail/screens/augmentedView.dart';
@@ -16,7 +17,7 @@ class NavigationPage extends StatefulWidget {
 class _NavigationPageState extends State<NavigationPage> {
   List pageOptions = [
     HomePage(),
-    AccountPage(),
+    CreateEventPage(),
     ARPage(),
   ];
 

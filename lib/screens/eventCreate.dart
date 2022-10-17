@@ -23,6 +23,7 @@ class CreateEventPage extends StatefulWidget {
 class _CreateEventPageState extends State<CreateEventPage> {
   String? title, description, location;
 
+  final TextEditingController _textEditingController = TextEditingController();
   final MultiSelectController _multiSelectController = MultiSelectController();
 
   @override
@@ -120,10 +121,19 @@ class _CreateEventPageState extends State<CreateEventPage> {
                               ),
                             ),
                             AutoSearchInput(
+                                controller: _textEditingController,
                                 data: addresses!,
                                 hintText: "Current Location",
                                 maxElementsToDisplay: 5,
-                                onItemTap: (index) => {}),
+                                onItemTap: (index) => {
+                                      _textEditingController.selection =
+                                          TextSelection.fromPosition(
+                                        TextPosition(
+                                          offset: _textEditingController
+                                              .text.length,
+                                        ),
+                                      )
+                                    }),
                           ],
                         ),
                       ],
