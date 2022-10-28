@@ -15,11 +15,24 @@ class NavigationPage extends StatefulWidget {
 }
 
 class _NavigationPageState extends State<NavigationPage> {
-  List pageOptions = [
-    HomePage(),
-    CreateEventPage(),
-    ARPage(),
-  ];
+  List pageOptions = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    pageOptions = [
+      HomePage(setPage: setPage),
+      CreateEventPage(),
+      ARPage(),
+    ];
+  }
+
+  void setPage(pageNum) {
+    setState(() {
+      page = pageNum;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

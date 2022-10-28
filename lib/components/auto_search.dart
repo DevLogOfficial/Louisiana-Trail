@@ -213,10 +213,10 @@ class _AutoSearchInputState extends State<AutoSearchInput> {
             child: ListView.builder(
               scrollDirection: Axis.vertical,
               itemCount: results.length,
+              padding: EdgeInsets.all(0),
               itemBuilder: (context, index) {
                 return Container(
                   height: widget.singleItemHeight,
-                  padding: const EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(color: Colors.grey[300] as Color),

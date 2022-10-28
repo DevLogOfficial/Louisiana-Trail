@@ -8,14 +8,8 @@
       "languageVersion": "2.16"
     },
     {
-      "name": "ansicolor",
-      "rootUri": "file:///C:/Program%20Files/flutter/.pub-cache/hosted/pub.dartlang.org/ansicolor-1.1.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.0"
-    },
-    {
       "name": "ar_flutter_plugin",
-      "rootUri": "file:///C:/Program%20Files/flutter/.pub-cache/git/ar_flutter_plugin-7c4f5a367b3cf0981f98025595932679bb5d9621/",
+      "rootUri": "file:///C:/Program%20Files/flutter/.pub-cache/git/ar_flutter_plugin-8c052627698ec59c7597aa315ce809597a28da0c/",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -66,12 +60,6 @@
       "rootUri": "file:///C:/Program%20Files/flutter/.pub-cache/hosted/pub.dartlang.org/collection-1.16.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
-    },
-    {
-      "name": "console_log_handler",
-      "rootUri": "file:///C:/Program%20Files/flutter/.pub-cache/hosted/pub.dartlang.org/console_log_handler-1.1.6",
-      "packageUri": "lib/",
-      "languageVersion": "2.0"
     },
     {
       "name": "crypto",
@@ -290,12 +278,6 @@
       "languageVersion": "2.17"
     },
     {
-      "name": "latlong",
-      "rootUri": "file:///C:/Program%20Files/flutter/.pub-cache/hosted/pub.dartlang.org/latlong-0.6.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.0"
-    },
-    {
       "name": "latlong2",
       "rootUri": "file:///C:/Program%20Files/flutter/.pub-cache/hosted/pub.dartlang.org/latlong2-0.8.1",
       "packageUri": "lib/",
@@ -330,12 +312,6 @@
       "rootUri": "file:///C:/Program%20Files/flutter/.pub-cache/hosted/pub.dartlang.org/location_web-3.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
-    },
-    {
-      "name": "logging",
-      "rootUri": "file:///C:/Program%20Files/flutter/.pub-cache/hosted/pub.dartlang.org/logging-0.11.4",
-      "packageUri": "lib/",
-      "languageVersion": "2.0"
     },
     {
       "name": "matcher",
@@ -554,12 +530,6 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "validate",
-      "rootUri": "file:///C:/Program%20Files/flutter/.pub-cache/hosted/pub.dartlang.org/validate-1.7.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.0"
-    },
-    {
       "name": "vector_math",
       "rootUri": "file:///C:/Program%20Files/flutter/.pub-cache/hosted/pub.dartlang.org/vector_math-2.1.2",
       "packageUri": "lib/",
@@ -590,7 +560,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2022-10-17T05:42:16.018829Z",
+  "generated": "2022-10-28T05:42:07.528058Z",
   "generator": "pub",
   "generatorVersion": "2.18.2"
 }

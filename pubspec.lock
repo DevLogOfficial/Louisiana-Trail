@@ -8,19 +8,12 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
-  ansicolor:
-    dependency: transitive
-    description:
-      name: ansicolor
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.1"
   ar_flutter_plugin:
     dependency: "direct main"
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "7c4f5a367b3cf0981f98025595932679bb5d9621"
+      resolved-ref: "8c052627698ec59c7597aa315ce809597a28da0c"
       url: "https://github.com/ShadowLogan31/ar_flutter_plugin"
     source: git
     version: "0.7.1"
@@ -80,13 +73,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.16.0"
-  console_log_handler:
-    dependency: transitive
-    description:
-      name: console_log_handler
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.6"
   crypto:
     dependency: transitive
     description:
@@ -333,13 +319,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.7.0"
-  latlong:
-    dependency: "direct main"
-    description:
-      name: latlong
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.6.1"
   latlong2:
     dependency: transitive
     description:
@@ -382,13 +361,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.1"
-  logging:
-    dependency: transitive
-    description:
-      name: logging
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.11.4"
   matcher:
     dependency: transitive
     description:
@@ -639,13 +611,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.1"
-  validate:
-    dependency: transitive
-    description:
-      name: validate
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.7.0"
   vector_math:
     dependency: "direct main"
     description:

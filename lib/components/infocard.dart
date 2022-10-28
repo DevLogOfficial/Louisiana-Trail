@@ -1,8 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:louisianatrail/components/map.dart';
 
 class InfoCard extends StatefulWidget {
@@ -20,14 +18,62 @@ class _InfoCardState extends State<InfoCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
+      height: 105,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [BoxShadow(blurRadius: 2, color: Colors.grey)],
+        borderRadius: BorderRadius.circular(8),
+      ),
       child: Row(children: [
-        SizedBox(width: 100, child: GPSMap(address: widget.address!)),
-        Column(children: [
-          Text(widget.title!, style: Theme.of(context).textTheme.labelLarge),
-          Text(widget.desc!),
-          Text(widget.host!)
-        ])
+        Stack(children: [
+          SizedBox(width: 103, child: GPSMap(address: widget.address!)),
+          Container(
+              width: 103, decoration: BoxDecoration(color: Colors.transparent)),
+        ]),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 5, left: 10),
+            child: Column(children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(widget.title!,
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelLarge!
+                          .copyWith(fontSize: 24)),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: Text("🎓",
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelLarge!
+                            .copyWith(fontSize: 20)),
+                  ),
+                ],
+              ),
+              Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(widget.desc!,
+                      overflow: TextOverflow.ellipsis, maxLines: 3)),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 5, right: 8),
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: Text(
+                      "hosted by ${widget.host!}",
+                      style: Theme.of(context)
+                          .textTheme
+                          .displaySmall!
+                          .copyWith(height: 1, color: Colors.grey),
+                    ),
+                  ),
+                ),
+              )
+            ]),
+          ),
+        ),
       ]),
     );
   }

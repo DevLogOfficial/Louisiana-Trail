@@ -93,11 +93,14 @@ class _CreateEventPageState extends State<CreateEventPage> {
                               child: Column(
                                 children: [
                                   SizedBox(height: 50),
-                                  SizedBox(
-                                    height: 150,
-                                    child: GPSMap(
-                                        address:
-                                            "310 LSU Student Union, Baton Rouge, LA 70803"),
+                                  Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: SizedBox(
+                                      height: 150,
+                                      child: GPSMap(
+                                          address:
+                                              "310 LSU Student Union, Baton Rouge, LA 70803"),
+                                    ),
                                   ),
                                   ElevatedButton(
                                       onPressed: () => {

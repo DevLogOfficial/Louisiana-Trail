@@ -1,16 +1,14 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:louisianatrail/components/infocard.dart';
 import 'package:louisianatrail/variables.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final Function? setPage;
+  const HomePage({super.key, this.setPage});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -69,12 +67,20 @@ class _HomePageState extends State<HomePage> {
                           DocumentSnapshot document =
                               snapshot.data!.docs[index];
                           return Padding(
-                            padding: EdgeInsets.all(10.0),
-                            child: InfoCard(
-                                title: document["title"],
-                                desc: document["desc"],
-                                host: document["host"],
-                                address: document["address"]),
+                            padding: EdgeInsets.all(15.0),
+                            child: InkWell(
+                              onTap: () => {
+                                setState(() {
+                                  widget.setPage!.call(2);
+                                  address = document["address"];
+                                })
+                              },
+                              child: InfoCard(
+                                  title: document["title"],
+                                  desc: document["desc"],
+                                  host: document["host"],
+                                  address: document["address"]),
+                            ),
                           );
                         } else {
                           return Center(

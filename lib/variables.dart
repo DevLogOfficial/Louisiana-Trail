@@ -25,6 +25,7 @@ var trailcollection = FirebaseFirestore.instance.collection('trails');
 
 //Navigation
 int page = 0;
+String address = "";
 //Navigation
 
 //Addresses
