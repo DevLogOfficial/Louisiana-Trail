@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:louisianatrail/components/auto_search.dart';
+import 'package:louisianatrail/components/destinationSelect.dart';
 import 'package:louisianatrail/components/map.dart';
 import 'package:louisianatrail/components/multiselect.dart';
 import 'package:louisianatrail/components/optionpicker.dart';
@@ -34,10 +35,20 @@ class _CreateEventPageState extends State<CreateEventPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          title: Text(""),
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.black),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ),
+        extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: false,
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(top: 60, left: 10),
+            padding: const EdgeInsets.only(top: 80, left: 10),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text("Create Event",
@@ -95,11 +106,36 @@ class _CreateEventPageState extends State<CreateEventPage> {
                                   SizedBox(height: 50),
                                   Padding(
                                     padding: const EdgeInsets.all(12.0),
-                                    child: SizedBox(
-                                      height: 150,
-                                      child: GPSMap(
-                                          address:
-                                              "310 LSU Student Union, Baton Rouge, LA 70803"),
+                                    child: InkWell(
+                                      onTap: () => Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      DestinationSelect()))
+                                          .then((results) => setState(() {
+                                                _textEditingController.text =
+                                                    results.street;
+                                                address = results.street;
+                                              })),
+                                      child: Stack(
+                                        children: [
+                                          SizedBox(
+                                            height: 150,
+                                            child: Hero(
+                                              tag: "destSelect",
+                                              child: GPSMap(
+                                                  address: address,
+                                                  marker: Icon(Icons.pin_drop,
+                                                      color: Colors.red,
+                                                      size: 30)),
+                                            ),
+                                          ),
+                                          Container(
+                                              height: 150,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.transparent)),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                   ElevatedButton(

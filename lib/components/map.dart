@@ -11,7 +11,12 @@ import 'package:louisianatrail/services/directions.dart';
 
 class GPSMap extends StatefulWidget {
   final String? address;
-  const GPSMap({Key? key, this.address}) : super(key: key);
+  final bool? interactive;
+  final Widget? marker;
+  final Function? onTap;
+  const GPSMap(
+      {Key? key, this.address, this.interactive, this.marker, this.onTap})
+      : super(key: key);
 
   @override
   State<GPSMap> createState() => _GPSMapState();
@@ -30,6 +35,8 @@ class _GPSMapState extends State<GPSMap> {
 
   LatLng? _destination;
   List<LatLng>? _routePoints;
+
+  Widget? pin;
 
   @override
   void initState() {
@@ -52,7 +59,9 @@ class _GPSMapState extends State<GPSMap> {
 
         if (_permission) {
           location = await _locationService.getLocation();
-          _destination = await getAddressLatLng(widget.address!);
+          if (widget.address != null) {
+            _destination = await getAddressLatLng(widget.address!);
+          }
           _currentLocation = location;
           _locationService.onLocationChanged
               .listen((LocationData result) async {
@@ -96,46 +105,56 @@ class _GPSMapState extends State<GPSMap> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 300,
-      width: MediaQuery.of(context).size.width,
-      child: FlutterMap(
-        mapController: _mapController,
-        options: MapOptions(
-          center: _destination ?? LatLng(0, 0),
-          // center: LatLng(47.925812, 106.919831),
-          zoom: 15.0,
-          interactiveFlags: InteractiveFlag.none,
+    return FlutterMap(
+      mapController: _mapController,
+      options: MapOptions(
+        onTap: (pos, coordinates) => widget.onTap != null
+            ? {
+                widget.onTap!.call(coordinates),
+                setState(() {
+                  _destination = coordinates;
+                  pin = Icon(Icons.pin_drop, color: Colors.red, size: 30);
+                }),
+              }
+            : {},
+        center: _destination ??
+            (_currentLocation != null
+                ? LatLng(
+                    _currentLocation!.latitude!, _currentLocation!.longitude!)
+                : LatLng(0, 0)),
+        interactiveFlags: widget.interactive == true
+            ? InteractiveFlag.all
+            : InteractiveFlag.none,
+        zoom: 15,
+      ),
+      children: [
+        TileLayer(
+          urlTemplate: 'http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
+          subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
         ),
-        children: [
-          TileLayer(
-            urlTemplate: 'http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
-            subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-          ),
-          MarkerLayer(markers: [
-            Marker(
+        MarkerLayer(markers: [
+          Marker(
               width: 150,
               height: 150,
-              point: _destination ?? LatLng(0, 0),
-              builder: (ctx) => const Icon(
-                Icons.pin_drop,
-                color: Colors.red,
-                size: 30,
+              point: _destination ??
+                  (_currentLocation != null
+                      ? LatLng(_currentLocation!.latitude!,
+                          _currentLocation!.longitude!)
+                      : LatLng(0, 0)),
+              builder: (ctx) =>
+                  widget.marker != null ? widget.marker! : pin ?? SizedBox()),
+        ]),
+        if (_routePoints != null)
+          PolylineLayer(
+            polylines: [
+              Polyline(
+                points: _routePoints!,
+                color: Colors.blue,
+                strokeWidth: 4,
               ),
-            ),
-          ]),
-          if (_routePoints != null)
-            PolylineLayer(
-              polylines: [
-                Polyline(
-                  points: _routePoints!,
-                  color: Colors.blue,
-                  strokeWidth: 4,
-                ),
-              ],
-            ),
-        ],
-      ),
+            ],
+          ),
+      ],
     );
   }
 }

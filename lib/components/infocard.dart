@@ -2,13 +2,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:louisianatrail/components/map.dart';
+import 'package:louisianatrail/variables.dart';
 
 class InfoCard extends StatefulWidget {
   final String? title;
   final String? desc;
   final String? host;
+  final String? type;
   final String? address;
-  const InfoCard({super.key, this.title, this.desc, this.host, this.address});
+  const InfoCard(
+      {super.key, this.title, this.desc, this.host, this.type, this.address});
 
   @override
   State<InfoCard> createState() => _InfoCardState();
@@ -26,7 +29,15 @@ class _InfoCardState extends State<InfoCard> {
       ),
       child: Row(children: [
         Stack(children: [
-          SizedBox(width: 103, child: GPSMap(address: widget.address!)),
+          SizedBox(
+              width: 103,
+              child: GPSMap(
+                address: widget.address!,
+                marker: CustomPaint(
+                  painter:
+                      MyPainter(inputText: types[widget.type!]!, inputSize: 18),
+                ),
+              )),
           Container(
               width: 103, decoration: BoxDecoration(color: Colors.transparent)),
         ]),
@@ -44,7 +55,7 @@ class _InfoCardState extends State<InfoCard> {
                           .copyWith(fontSize: 24)),
                   Padding(
                     padding: const EdgeInsets.only(right: 8.0),
-                    child: Text("🎓",
+                    child: Text(types[widget.type!]!,
                         style: Theme.of(context)
                             .textTheme
                             .labelLarge!

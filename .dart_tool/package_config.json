@@ -9,7 +9,7 @@
     },
     {
       "name": "ar_flutter_plugin",
-      "rootUri": "file:///C:/Program%20Files/flutter/.pub-cache/git/ar_flutter_plugin-8c052627698ec59c7597aa315ce809597a28da0c/",
+      "rootUri": "file:///C:/Program%20Files/flutter/.pub-cache/git/ar_flutter_plugin-54391c8f80c5fb93f20ecd5193114cc91c137842/",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -72,6 +72,12 @@
       "rootUri": "file:///C:/Program%20Files/flutter/.pub-cache/hosted/pub.dartlang.org/cupertino_icons-1.0.5",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "day_night_time_picker",
+      "rootUri": "file:///C:/Program%20Files/flutter/.pub-cache/hosted/pub.dartlang.org/day_night_time_picker-1.1.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
     },
     {
       "name": "fake_async",
@@ -560,7 +566,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2022-10-28T05:42:07.528058Z",
+  "generated": "2022-11-15T04:48:26.953405Z",
   "generator": "pub",
   "generatorVersion": "2.18.2"
 }

@@ -10,6 +10,13 @@ getAddressLatLng(address) async {
   return LatLng(first.latitude, first.longitude);
 }
 
+getLatLngAddress(coordinates) async {
+  var addresses = await geo.placemarkFromCoordinates(
+      coordinates.latitude!, coordinates.longitude!);
+  var first = addresses.first;
+  return first;
+}
+
 retrieveRoute(currentLocation, destination) async {
   final OpenRouteService client = OpenRouteService(
       apiKey: '5b3ce3597851110001cf6248a23c02f542074e98a19f226352abe372');

@@ -59,6 +59,7 @@ class _ARPageState extends State<ARPage> {
     _arSessionManager = arSessionManager;
     _arObjectManager = arObjectManager;
     _arLocationManager = arLocationManager;
+    _arAnchorManager = arAnchorManager;
 
     arSessionManager.onInitialize(
       showFeaturePoints: false,
@@ -194,7 +195,21 @@ class _ARPageState extends State<ARPage> {
     _arrowNode!.position = Vector3(0, -1, -3);
   }
 
-  Future<void> setAnchorAtPlace(coordinates) async {}
+  Future<void> setAnchorAtPlace(coordinates) async {
+    List<double> coordinates = [30.401280, -91.176440, 7]; //lat, lng, altitude
+    var newAnchor = ARGeospatialAnchor(transformation: coordinates);
+    _arAnchorManager!.addAnchor(newAnchor);
+    setNodeAtAnchor(newAnchor);
+  }
+
+  setNodeAtAnchor(anchor) {
+    var newNode = ARNode(
+      channel: _arObjectManager!.channel,
+      type: NodeType.localGLTF2,
+      uri: "assets/models/arrow/scene.gltf",
+      scale: Vector3(0.2, 0.2, 0.2),
+    );
+  }
 
   getCameraPos() async {
     Matrix4? matr = await _arSessionManager!.getCameraPose();
@@ -207,7 +222,7 @@ class _ARPageState extends State<ARPage> {
       body: ARView(
         onARViewCreated: onARViewCreated,
         planeDetectionConfig: PlaneDetectionConfig.horizontalAndVertical,
-        geospatialModeConfig: GeospatialModeConfig.disabled,
+        geospatialModeConfig: GeospatialModeConfig.enabled,
       ),
     );
   }
