@@ -202,13 +202,14 @@ class _ARPageState extends State<ARPage> {
     setNodeAtAnchor(newAnchor);
   }
 
-  setNodeAtAnchor(anchor) {
+  setNodeAtAnchor(anchor) async {
     var newNode = ARNode(
       channel: _arObjectManager!.channel,
-      type: NodeType.localGLTF2,
-      uri: "assets/models/arrow/scene.gltf",
+      type: NodeType.text,
+      uri: [],
       scale: Vector3(0.2, 0.2, 0.2),
     );
+    await _arObjectManager!.addNode(newNode, anchor: anchor);
   }
 
   getCameraPos() async {
