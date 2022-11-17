@@ -240,7 +240,6 @@ class _RegisterState extends State<Register> {
           email: email!,
           password: password!,
         );
-        Navigator.pop(context);
         return {
           auth.currentUser!.updateDisplayName(username),
         };
