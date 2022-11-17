@@ -35,7 +35,7 @@ class _NavigationPageState extends State<NavigationPage> {
           desc: data["desc"],
           host: data["host"],
           address: data["address"],
-          type: data["type"]);
+          tag: data["tag"]);
       page = pageNum;
     });
   }

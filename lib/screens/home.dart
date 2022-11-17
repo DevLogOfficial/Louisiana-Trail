@@ -97,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                                                 "desc": document["desc"],
                                                 "host": hostName,
                                                 "address": document["address"],
-                                                "type": document["type"]
+                                                "tag": document["tag"]
                                               });
                                             })
                                           },
@@ -105,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                                               title: document["title"],
                                               desc: document["desc"],
                                               host: hostName,
-                                              type: document["type"],
+                                              tag: document["tag"],
                                               address: document["address"]),
                                         ),
                                       );

@@ -63,10 +63,10 @@ class _GPSMapState extends State<GPSMap> {
             _destination = await getAddressLatLng(widget.address!);
           }
           _currentLocation = location;
+          initMap();
           _locationService.onLocationChanged
               .listen((LocationData result) async {
             if (mounted) {
-              initMap();
               setState(() {
                 _currentLocation = result;
 

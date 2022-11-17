@@ -8,10 +8,10 @@ class InfoCard extends StatefulWidget {
   final String? title;
   final String? desc;
   final String? host;
-  final String? type;
+  final String? tag;
   final String? address;
   const InfoCard(
-      {super.key, this.title, this.desc, this.host, this.type, this.address});
+      {super.key, this.title, this.desc, this.host, this.tag, this.address});
 
   @override
   State<InfoCard> createState() => _InfoCardState();
@@ -35,7 +35,7 @@ class _InfoCardState extends State<InfoCard> {
                 address: widget.address!,
                 marker: CustomPaint(
                   painter:
-                      MyPainter(inputText: types[widget.type!]!, inputSize: 18),
+                      MyPainter(inputText: tags[widget.tag!]!, inputSize: 18),
                 ),
               )),
           Container(
@@ -55,7 +55,7 @@ class _InfoCardState extends State<InfoCard> {
                           .copyWith(fontSize: 24)),
                   Padding(
                     padding: const EdgeInsets.only(right: 8.0),
-                    child: Text(types[widget.type!]!,
+                    child: Text(tags[widget.tag!]!,
                         style: Theme.of(context)
                             .textTheme
                             .labelLarge!

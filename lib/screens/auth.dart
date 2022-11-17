@@ -7,7 +7,7 @@ import 'package:louisianatrail/components/textForm.dart';
 import 'package:louisianatrail/variables.dart';
 import 'package:flutter/material.dart';
 
-bool logState = false;
+bool logState = true;
 
 class AuthPage extends StatefulWidget {
   const AuthPage({Key? key}) : super(key: key);

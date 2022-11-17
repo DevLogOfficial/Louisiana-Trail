@@ -29,40 +29,20 @@ String address = "310 LSU Student Union, Baton Rouge, LA 70803";
 Map<String, String> marker = {};
 //Navigation
 
-//Types
-final Map<String, String> types = {"Study": "🎓", "Lunch": "😋", "Club": "🐵"};
-//Types
-
-//Addresses
-List<String>? addresses = [
-  'Music',
-  'Games',
-  'Youtube',
-  'Sports',
-  'LSU',
-  'Books',
-  'Study',
-  'Food',
-  'Fraternity',
-  'Sorority',
-  'Entertainment',
-];
-//Addresses
-
 //Tags
-List<String>? tags = [
-  'Music',
-  'Games',
-  'Youtube',
-  'Sports',
-  'LSU',
-  'Books',
-  'Study',
-  'Food',
-  'Fraternity',
-  'Sorority',
-  'Entertainment',
-];
+Map<String, String> tags = {
+  "Music": "🎵",
+  "Games": "🎮",
+  "Youtube": "📺",
+  "Sports": "🏈",
+  "LSU": "🐯",
+  "Books": "📚",
+  "Study": "🎓",
+  "Food": "🍕",
+  "Fraternity": "👔",
+  "Sorority": "🎀",
+  "Entertainment": "🎉",
+};
 //Tags
 
 //Clipping

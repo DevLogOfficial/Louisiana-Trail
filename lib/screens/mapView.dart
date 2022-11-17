@@ -12,9 +12,9 @@ class MapPage extends StatefulWidget {
   final String? desc;
   final String? host;
   final String? address;
-  final String? type;
+  final String? tag;
   const MapPage(
-      {Key? key, this.title, this.desc, this.host, this.address, this.type})
+      {Key? key, this.title, this.desc, this.host, this.address, this.tag})
       : super(key: key);
 
   @override
@@ -30,7 +30,7 @@ class _MapState extends State<MapPage> {
         body: GPSMap(
       address: address,
       interactive: true,
-      marker: widget.type != null
+      marker: widget.tag != null
           ? Stack(
               alignment: Alignment.center,
               clipBehavior: Clip.none,
@@ -45,7 +45,7 @@ class _MapState extends State<MapPage> {
                       width: 100,
                       child: CustomPaint(
                         painter: MyPainter(
-                            inputText: types[widget.type]!, inputSize: 25),
+                            inputText: tags[widget.tag]!, inputSize: 25),
                       ),
                     )),
                 if (active)

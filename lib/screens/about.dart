@@ -110,7 +110,9 @@ class _AboutPageState extends State<AboutPage> {
                 ),
                 MultiSelect(
                   controller: _multiSelectController,
-                  tags: tags!,
+                  tags: tags.entries.map((entry) {
+                    return entry.key;
+                  }).toList(),
                   hintText: "Select interests",
                   chipColors: [
                     Theme.of(context).colorScheme.primary,

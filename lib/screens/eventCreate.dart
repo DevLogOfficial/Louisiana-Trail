@@ -22,10 +22,9 @@ class CreateEventPage extends StatefulWidget {
 }
 
 class _CreateEventPageState extends State<CreateEventPage> {
-  String? title, description, location, type;
+  String? title, description, location, tag;
 
   final TextEditingController _textEditingController = TextEditingController();
-  final MultiSelectController _multiSelectController = MultiSelectController();
 
   @override
   void initState() {
@@ -48,7 +47,8 @@ class _CreateEventPageState extends State<CreateEventPage> {
         resizeToAvoidBottomInset: false,
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(top: 80, left: 10),
+            padding:
+                const EdgeInsets.only(top: 80.0, left: 8, right: 8, bottom: 8),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text("Create Event",
@@ -56,30 +56,31 @@ class _CreateEventPageState extends State<CreateEventPage> {
               SizedBox(height: 20),
               Text("Event Title",
                   style: Theme.of(context).textTheme.displayLarge),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextForm(
-                    labelText: "Your Event Title",
-                    onSaved: (value) => {
-                          setState(() {
-                            title = value;
-                          }),
+              TextFormField(
+                  decoration: InputDecoration(
+                      hintText: "Your Event Title",
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8))),
+                  onChanged: (value) => {
+                        setState(() {
+                          title = value;
                         }),
-              ),
+                      }),
+              SizedBox(height: 20),
               Text("Description",
                   style: Theme.of(context).textTheme.displayLarge),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextForm(
-                    labelText: "Something about your event...",
-                    maxLines: 5,
-                    maxLength: 150,
-                    onSaved: (value) => {
-                          setState(() {
-                            title = value;
-                          }),
+              TextFormField(
+                  decoration: InputDecoration(
+                      hintText: "Your Event Title",
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8))),
+                  maxLines: 5,
+                  maxLength: 150,
+                  onChanged: (value) => {
+                        setState(() {
+                          description = value;
                         }),
-              ),
+                      }),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -91,106 +92,104 @@ class _CreateEventPageState extends State<CreateEventPage> {
               ),
               Stack(
                 children: [
-                  Positioned(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 175),
-                        DropdownButton<String>(
-                            value: type,
-                            icon: const Icon(Icons.arrow_downward),
-                            elevation: 16,
-                            style: const TextStyle(color: Colors.deepPurple),
-                            underline: Container(
-                              height: 2,
-                              color: Colors.deepPurpleAccent,
-                            ),
-                            onChanged: (String? value) {
-                              // This is called when the user selects an item.
-                              setState(() {
-                                type = value!;
-                              });
-                            },
-                            items: types.entries.map((entry) {
-                              return DropdownMenuItem(
-                                value: entry.key + entry.value,
-                                child: Text(entry.key + entry.value),
-                              );
-                            }).toList()),
-                        SizedBox(height: 175),
-                        Text("Location",
-                            style: Theme.of(context).textTheme.labelLarge),
-                        SizedBox(height: 50),
-                        TextForm(
-                            labelText: "Enter location",
-                            onSaved: (value) => {
-                                  setState(() {
-                                    location = value;
-                                  }),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 80),
+                      Text("Location",
+                          style: Theme.of(context).textTheme.displayLarge),
+                      SizedBox(height: 10),
+                      TextFormField(
+                          controller: _textEditingController,
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(8),
+                                      topRight: Radius.circular(8)))),
+                          onChanged: (value) => {
+                                setState(() {
+                                  location = value;
                                 }),
-                        Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: InkWell(
-                            onTap: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            DestinationSelect()))
-                                .then((results) => setState(() {
-                                      _textEditingController.text =
-                                          results.street;
-                                      location = results.street;
-                                    })),
-                            child: Stack(
-                              children: [
-                                SizedBox(
-                                  height: 150,
-                                  child: Hero(
-                                    tag: "destSelect",
-                                    child: GPSMap(
-                                        address: location,
-                                        marker: Icon(Icons.pin_drop,
-                                            color: Colors.red, size: 30)),
-                                  ),
-                                ),
-                                Container(
-                                    height: 150,
-                                    decoration: BoxDecoration(
-                                        color: Colors.transparent)),
-                              ],
+                              }),
+                      InkWell(
+                        onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DestinationSelect()))
+                            .then((results) => setState(() {
+                                  _textEditingController.text =
+                                      "${results.street}, ${results.locality}, ${results.postalCode}";
+                                  location =
+                                      "${results.street}, ${results.locality}, ${results.postalCode}";
+                                })),
+                        child: Stack(
+                          children: [
+                            Container(
+                              clipBehavior: Clip.hardEdge,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(8),
+                                      bottomRight: Radius.circular(8))),
+                              height: 150,
+                              child: Hero(
+                                tag: "destSelect",
+                                child: GPSMap(
+                                    address: location,
+                                    marker: Icon(Icons.pin_drop,
+                                        color: Colors.red, size: 30)),
+                              ),
                             ),
-                          ),
+                            Container(
+                                height: 150,
+                                decoration:
+                                    BoxDecoration(color: Colors.transparent)),
+                          ],
                         ),
-                        ElevatedButton(
-                            onPressed: () => {
-                                  trailcollection.doc().set({
-                                    'title': title,
-                                    'desc': description,
-                                    'host': auth.currentUser!.uid,
-                                    'address': location,
-                                  }),
-                                  widget.onSubmit!.call(),
-                                },
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.purple[700],
-                                minimumSize: Size(350, 50),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10))),
-                            child: Text('Done',
-                                style:
-                                    Theme.of(context).textTheme.displayLarge)),
-                        SizedBox(height: 50),
-                      ],
-                    ),
+                      ),
+                      SizedBox(height: 20),
+                      ElevatedButton(
+                          onPressed: () => {
+                                Navigator.pop(context),
+                                trailcollection.doc().set({
+                                  'title': title,
+                                  'desc': description,
+                                  'host': auth.currentUser!.uid,
+                                  'address': location,
+                                  'tag': tag!.substring(0, tag!.length - 2),
+                                }),
+                              },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.purple[700],
+                              minimumSize:
+                                  Size(MediaQuery.of(context).size.width, 50),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10))),
+                          child: Text('Done',
+                              style: Theme.of(context).textTheme.displayLarge)),
+                      SizedBox(height: 30),
+                    ],
                   ),
-                  MultiSelect(
-                      controller: _multiSelectController,
-                      tags: tags,
-                      hintText: "Select tags",
-                      chipColors: [
-                        Theme.of(context).colorScheme.primary,
-                        Theme.of(context).colorScheme.secondary
-                      ])
+                  DropdownButton<String>(
+                      value: tag,
+                      icon: const Icon(Icons.arrow_downward),
+                      elevation: 16,
+                      style: const TextStyle(color: Colors.deepPurple),
+                      underline: Container(
+                        height: 2,
+                        color: Colors.deepPurpleAccent,
+                      ),
+                      onChanged: (String? value) {
+                        // This is called when the user selects an item.
+                        setState(() {
+                          tag = value!;
+                        });
+                      },
+                      items: tags.entries.map((entry) {
+                        return DropdownMenuItem(
+                          value: entry.key + entry.value,
+                          child: Text(entry.key + entry.value),
+                        );
+                      }).toList()),
                 ],
               ),
             ]),
