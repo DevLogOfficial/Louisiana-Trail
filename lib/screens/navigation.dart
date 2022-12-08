@@ -24,7 +24,7 @@ class _NavigationPageState extends State<NavigationPage> {
     pageOptions = [
       HomePage(setPage: setPage),
       AccountPage(),
-      MapPage(),
+      ARPage(),
     ];
   }
 

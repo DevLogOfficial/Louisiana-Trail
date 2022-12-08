@@ -45,6 +45,8 @@ class _ARPageState extends State<ARPage> {
   LatLng? _destination;
   List<LatLng>? _routePoints;
 
+  String trackingState = "NOT TRACKING";
+
   @override
   void dispose() {
     super.dispose();
@@ -84,7 +86,6 @@ class _ARPageState extends State<ARPage> {
   Future<void> calculateDirection() async {
     _destination = await getAddressLatLng(address);
     _routePoints = await retrieveRoute(_currentLocation, _destination);
-    print("HERE GET MY ARROW");
     getArrow();
   }
 
@@ -126,7 +127,6 @@ class _ARPageState extends State<ARPage> {
         _currentLocation.toString() +
         ":" +
         pointLocation.toString());
-    print("ROUTEPOINT:" + _routePoints.toString());
     double rotationInRadians = rotationinKm / 6371;
     return rotationInRadians;
   }
@@ -147,15 +147,19 @@ class _ARPageState extends State<ARPage> {
           location = await _locationService.getLocation();
           _currentLocation = location;
           calculateDirection();
+          print("SET UP");
           _locationService.onLocationChanged
               .listen((LocationData result) async {
             if (mounted) {
+              print("MOUNTED");
+              var trackState = await getEarthTrackingState();
               setState(() {
                 _currentLocation = result;
                 if (_arrowNode != null) {
+                  trackingState = trackState;
+                  print("TRACKING STATE: " + trackingState);
                   double rotation = calculateRotation(_routePoints![1]);
                   Matrix3 matrix = Matrix3.zero();
-                  print("ROTATION:" + rotation.toString());
                   matrix.setRotationY(rotation);
                   _arrowNode!.transform = Matrix4.compose(Vector3(0, -1, -3),
                       Quaternion.fromRotation(matrix), Vector3(0.2, 0.2, 0.2));
@@ -190,15 +194,26 @@ class _ARPageState extends State<ARPage> {
       scale: Vector3(0.2, 0.2, 0.2),
     );
     bool? didAddLocalNode = await _arObjectManager!.addNode(newNode);
-    _arrowNode = (didAddLocalNode != null) ? newNode : null;
+    _arrowNode = didAddLocalNode! ? newNode : null;
     _arrowNode!.setParent(ParentType.camera);
     _arrowNode!.position = Vector3(0, -1, -3);
+    setAnchorAtPlace();
   }
 
-  Future<void> setAnchorAtPlace(coordinates) async {
-    List<double> coordinates = [30.401280, -91.176440, 7]; //lat, lng, altitude
+  Future<void> setAnchorAtPlace() async {
+    List<double> coordinates = [
+      _currentLocation.latitude,
+      _currentLocation.longitude,
+      _currentLocation.altitude,
+    ]; //lat, lng, altitude
     var newAnchor = ARGeospatialAnchor(transformation: coordinates);
     _arAnchorManager!.addAnchor(newAnchor);
+    print("COORDINATES: LATITUDE: " +
+        coordinates[0].toString() +
+        ", LONGITUDE: " +
+        coordinates[1].toString() +
+        ", ALTITUDE: " +
+        coordinates[2].toString());
     setNodeAtAnchor(newAnchor);
   }
 
@@ -206,24 +221,33 @@ class _ARPageState extends State<ARPage> {
     var newNode = ARNode(
       channel: _arObjectManager!.channel,
       type: NodeType.text,
-      uri: [],
-      scale: Vector3(0.2, 0.2, 0.2),
+      uri: ["Subject", "Description", "Host"],
+      scale: Vector3(1, 1, 1),
     );
-    await _arObjectManager!.addNode(newNode, anchor: anchor);
+    print("NODE ADDED");
+    bool? didAddTextNode =
+        await _arObjectManager!.addNode(newNode, anchor: anchor);
+    print(didAddTextNode);
+    print("NODE FULLY ADDED");
   }
 
-  getCameraPos() async {
-    Matrix4? matr = await _arSessionManager!.getCameraPose();
-    return matr;
+  Future<String> getEarthTrackingState() async {
+    String? trackingState = await _arSessionManager!.getEarthTrackingState();
+    return trackingState.toString();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ARView(
-        onARViewCreated: onARViewCreated,
-        planeDetectionConfig: PlaneDetectionConfig.horizontalAndVertical,
-        geospatialModeConfig: GeospatialModeConfig.enabled,
+      body: Stack(
+        children: [
+          ARView(
+            onARViewCreated: onARViewCreated,
+            planeDetectionConfig: PlaneDetectionConfig.horizontalAndVertical,
+            geospatialModeConfig: GeospatialModeConfig.enabled,
+          ),
+          Text(trackingState)
+        ],
       ),
     );
   }

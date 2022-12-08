@@ -9,7 +9,7 @@
     },
     {
       "name": "ar_flutter_plugin",
-      "rootUri": "file:///C:/Program%20Files/flutter/.pub-cache/git/ar_flutter_plugin-c94819d7cf1f0e137c761958e64533bc0612a15e/",
+      "rootUri": "file:///C:/Program%20Files/flutter/.pub-cache/git/ar_flutter_plugin-3f2afd5d3fb11abda940caa5735551fe04bdb8aa/",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -566,7 +566,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2022-11-17T04:52:48.270385Z",
+  "generated": "2022-12-08T06:36:23.244402Z",
   "generator": "pub",
   "generatorVersion": "2.18.2"
 }
