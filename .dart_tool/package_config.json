@@ -9,7 +9,7 @@
     },
     {
       "name": "ar_flutter_plugin",
-      "rootUri": "file:///C:/Program%20Files/flutter/.pub-cache/git/ar_flutter_plugin-3f2afd5d3fb11abda940caa5735551fe04bdb8aa/",
+      "rootUri": "file:///C:/Program%20Files/flutter/.pub-cache/git/ar_flutter_plugin-bd6d1a3400bb0633576b7129432509a418469834/",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -150,6 +150,12 @@
       "rootUri": "file:///C:/Program%20Files/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_database_web-0.2.1+8",
       "packageUri": "lib/",
       "languageVersion": "2.16"
+    },
+    {
+      "name": "floating_pullup_card",
+      "rootUri": "file:///C:/Program%20Files/flutter/.pub-cache/hosted/pub.dartlang.org/floating_pullup_card-1.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
     },
     {
       "name": "flutter",
@@ -566,7 +572,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2022-12-08T06:36:23.244402Z",
+  "generated": "2022-12-08T17:31:54.965413Z",
   "generator": "pub",
   "generatorVersion": "2.18.2"
 }

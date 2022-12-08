@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:louisianatrail/screens/account.dart';
 import 'package:louisianatrail/screens/mapView.dart';
+import 'package:louisianatrail/screens/sightView.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:louisianatrail/screens/home.dart';
 import 'package:louisianatrail/screens/augmentedView.dart';
@@ -24,13 +25,13 @@ class _NavigationPageState extends State<NavigationPage> {
     pageOptions = [
       HomePage(setPage: setPage),
       AccountPage(),
-      ARPage(),
+      SightPage(),
     ];
   }
 
   void setPage(pageNum, data) {
     setState(() {
-      pageOptions[2] = MapPage(
+      pageOptions[2] = SightPage(
           title: data["title"],
           desc: data["desc"],
           host: data["host"],

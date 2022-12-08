@@ -24,7 +24,14 @@ import 'package:louisianatrail/variables.dart';
 import 'package:vector_math/vector_math_64.dart';
 
 class ARPage extends StatefulWidget {
-  const ARPage({super.key});
+  final String? title;
+  final String? desc;
+  final String? host;
+  final String? address;
+  final String? tag;
+  const ARPage(
+      {Key? key, this.title, this.desc, this.host, this.address, this.tag})
+      : super(key: key);
 
   @override
   State<ARPage> createState() => _ARPageState();
@@ -122,11 +129,6 @@ class _ARPageState extends State<ARPage> {
         _currentLocation.longitude,
         pointLocation.latitude,
         pointLocation.longitude);
-    print("KM: $rotationinKm");
-    print("CURRENTLOCATION:" +
-        _currentLocation.toString() +
-        ":" +
-        pointLocation.toString());
     double rotationInRadians = rotationinKm / 6371;
     return rotationInRadians;
   }
@@ -147,17 +149,14 @@ class _ARPageState extends State<ARPage> {
           location = await _locationService.getLocation();
           _currentLocation = location;
           calculateDirection();
-          print("SET UP");
           _locationService.onLocationChanged
               .listen((LocationData result) async {
             if (mounted) {
-              print("MOUNTED");
               var trackState = await getEarthTrackingState();
               setState(() {
                 _currentLocation = result;
                 if (_arrowNode != null) {
                   trackingState = trackState;
-                  print("TRACKING STATE: " + trackingState);
                   double rotation = calculateRotation(_routePoints![1]);
                   Matrix3 matrix = Matrix3.zero();
                   matrix.setRotationY(rotation);
@@ -204,31 +203,29 @@ class _ARPageState extends State<ARPage> {
     List<double> coordinates = [
       _currentLocation.latitude,
       _currentLocation.longitude,
-      _currentLocation.altitude,
+      _currentLocation.altitude - 1.3,
     ]; //lat, lng, altitude
     var newAnchor = ARGeospatialAnchor(transformation: coordinates);
     _arAnchorManager!.addAnchor(newAnchor);
-    print("COORDINATES: LATITUDE: " +
-        coordinates[0].toString() +
-        ", LONGITUDE: " +
-        coordinates[1].toString() +
-        ", ALTITUDE: " +
-        coordinates[2].toString());
     setNodeAtAnchor(newAnchor);
   }
 
   setNodeAtAnchor(anchor) async {
     var newNode = ARNode(
       channel: _arObjectManager!.channel,
-      type: NodeType.text,
-      uri: ["Subject", "Description", "Host"],
-      scale: Vector3(1, 1, 1),
+      type: NodeType.localGLTF2,
+      uri: "assets/models/mapMarker/MapMarker.gltf",
+      scale: Vector3(0.5, 0.5, 0.5),
     );
-    print("NODE ADDED");
-    bool? didAddTextNode =
-        await _arObjectManager!.addNode(newNode, anchor: anchor);
-    print(didAddTextNode);
-    print("NODE FULLY ADDED");
+    var newNode2 = ARNode(
+      channel: _arObjectManager!.channel,
+      type: NodeType.text,
+      uri: [widget.title, widget.desc, "Hosted by ${widget.host}"],
+      scale: Vector3(1, 1, 1),
+      position: Vector3(-1, 1, -0.3),
+    );
+    await _arObjectManager!.addNode(newNode, anchor: anchor);
+    await _arObjectManager!.addNode(newNode2, anchor: anchor);
   }
 
   Future<String> getEarthTrackingState() async {

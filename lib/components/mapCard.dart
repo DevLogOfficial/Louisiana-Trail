@@ -60,9 +60,10 @@ class _MapCardState extends State<MapCard> {
                               style: Theme.of(context)
                                   .textTheme
                                   .displaySmall!
-                                  .copyWith(color: Colors.blue)))
+                                  .copyWith(color: Colors.blue))),
                     ],
                   )),
+              SizedBox(height: 10),
             ],
           ),
         ));

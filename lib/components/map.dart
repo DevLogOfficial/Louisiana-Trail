@@ -23,16 +23,9 @@ class GPSMap extends StatefulWidget {
 }
 
 class _GPSMapState extends State<GPSMap> {
-  LocationData? _currentLocation;
   late final MapController _mapController;
 
-  bool _liveUpdate = false;
-  bool _permission = false;
-
-  String? _serviceError = '';
-
-  final Location _locationService = Location();
-
+  LatLng? _loc;
   LatLng? _destination;
   List<LatLng>? _routePoints;
 
@@ -42,65 +35,32 @@ class _GPSMapState extends State<GPSMap> {
   void initState() {
     super.initState();
     _mapController = MapController();
-    initLocationService();
+    initializeLocationService();
   }
 
-  void initLocationService() async {
-    LocationData? location;
-    bool serviceEnabled;
-    bool serviceRequestResult;
-
-    try {
-      serviceEnabled = await _locationService.serviceEnabled();
-
-      if (serviceEnabled) {
-        final permission = await _locationService.requestPermission();
-        _permission = permission == PermissionStatus.granted;
-
-        if (_permission) {
-          location = await _locationService.getLocation();
-          if (widget.address != null) {
-            _destination = await getAddressLatLng(widget.address!);
-          }
-          _currentLocation = location;
-          initMap();
-          _locationService.onLocationChanged
-              .listen((LocationData result) async {
-            if (mounted) {
-              setState(() {
-                _currentLocation = result;
-
-                // If Live Update is enabled, move map center
-                if (_liveUpdate) {
-                  _mapController.move(
-                      LatLng(_currentLocation!.latitude!,
-                          _currentLocation!.longitude!),
-                      _mapController.zoom);
-                }
-              });
-            }
-          });
-        }
-      } else {
-        serviceRequestResult = await _locationService.requestService();
-        if (serviceRequestResult) {
-          initLocationService();
-          return;
-        }
-      }
-    } on PlatformException catch (e) {
-      debugPrint(e.toString());
-      if (e.code == 'PERMISSION_DENIED') {
-        _serviceError = e.message;
-      } else if (e.code == 'SERVICE_STATUS_ERROR') {
-        _serviceError = e.message;
-      }
-      location = null;
+  initializeLocationService() async {
+    if (!permissionGranted) {
+      await initLocationService();
     }
+    _loc = await getAddressLatLng(widget.address!);
+    initMap();
   }
 
-  void initMap() {
-    _mapController.move(_destination!, _mapController.zoom);
+  void initMap() async {
+    if (permissionGranted) {
+      if (widget.address != null) {
+        if (mounted) {
+          if (_loc != null) {
+            setState(() {
+              _destination = _loc;
+            });
+          } else {
+            initializeLocationService();
+          }
+        }
+      }
+      _mapController.move(_destination!, _mapController.zoom);
+    }
   }
 
   @override
@@ -118,9 +78,9 @@ class _GPSMapState extends State<GPSMap> {
               }
             : {},
         center: _destination ??
-            (_currentLocation != null
+            (currentLocation != null
                 ? LatLng(
-                    _currentLocation!.latitude!, _currentLocation!.longitude!)
+                    currentLocation!.latitude!, currentLocation!.longitude!)
                 : LatLng(0, 0)),
         interactiveFlags: widget.interactive == true
             ? InteractiveFlag.all
@@ -137,9 +97,9 @@ class _GPSMapState extends State<GPSMap> {
               width: 150,
               height: 150,
               point: _destination ??
-                  (_currentLocation != null
-                      ? LatLng(_currentLocation!.latitude!,
-                          _currentLocation!.longitude!)
+                  (currentLocation != null
+                      ? LatLng(currentLocation!.latitude!,
+                          currentLocation!.longitude!)
                       : LatLng(0, 0)),
               builder: (ctx) =>
                   widget.marker != null ? widget.marker! : pin ?? SizedBox()),

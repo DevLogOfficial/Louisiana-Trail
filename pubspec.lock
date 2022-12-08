@@ -13,7 +13,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "3f2afd5d3fb11abda940caa5735551fe04bdb8aa"
+      resolved-ref: bd6d1a3400bb0633576b7129432509a418469834
       url: "https://github.com/ShadowLogan31/ar_flutter_plugin"
     source: git
     version: "0.7.1"
@@ -178,6 +178,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.1+8"
+  floating_pullup_card:
+    dependency: "direct main"
+    description:
+      name: floating_pullup_card
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.0"
   flutter:
     dependency: "direct main"
     description: flutter

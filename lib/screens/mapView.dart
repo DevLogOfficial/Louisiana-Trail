@@ -52,7 +52,6 @@ class _MapState extends State<MapPage> {
                   Positioned(
                     left: 50,
                     bottom: 100,
-                    height: 175,
                     width: 200,
                     child: MapCard(
                         title: widget.title,
